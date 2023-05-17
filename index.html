@@ -6,16 +6,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="myScript.js" defer></script>
 </head>
 <body>
-    <div class="header-container">
-        <h1>Etch-a-sketch</h1>
+    
+      <div class="header-container">
+          <h1>Etch-a-sketch</h1>
+          <h5> Let's drow something cool... &#128526;&#128526;&#128526;&#128526;</h5>
+      </div>
+    <div style="display: flex; flex-direction: row;">  
+      <div class="drowing-board-container">
+          
+      </div>
+      <div class="color-mode-and-div-width-setter">
+        <div style="display: flex; flex-direction: row; justify-content: center; align-items: center; flex-wrap: wrap;">
+          <input class="colorPicker" type="color"><button class="rainbow-mode">Rainbow</button><button class="color-resetter">Reset</button><button class="eraser">Erase</button>  <button class="board-cleaner">Clean Board</button><h2 style="margin: 0 20px 0 20px;" class="box-size">16X16</h2><input class="div-inside-container" min="1" max="" value="20" type="range">
+        </div>
+      </div>
     </div>
-    <div class="drowing-board-container">
-        
-    </div>
-    <div class="color-mode-and-div-width-setter"></div>
-    <footer>Copy right Yidnekachew Tefera Gebresilasei TheOdinProject Github</footer>
+      <footer>Copy right Yidnekachew Tefera Gebresilasei TheOdinProject Github  <i class="fa fa-github"></i></footer>
+      <div class="splash" style="display: none;">
+          <h1 class = "splash-header"><div class="animated-title">
+              <div class="text-top">
+                <div>
+                  <span>I'm</span>
+                  <span> Yidnekachew</span>
+                </div>
+              </div>
+              <div class="text-bottom">
+                <div>have a nice Drowing</div>
+              </div>
+            </div></h1>
+        </div>
 </body>
 </html>
