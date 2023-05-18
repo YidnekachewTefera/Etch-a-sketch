@@ -6,11 +6,6 @@ const boardCleaner = document.querySelector(".board-cleaner");
 const rainbowMode = document.querySelector(".rainbow-mode");
 const divInsideContainer = document.querySelector(".div-inside-container");
 const boxSize = document.querySelector(".box-size");
-let divsInsideBoard;
-const clearBoard = () => {
-  board.innerHTML = "";
-  boxSize.textContent = "0X0";
-};
 const defaultBoard = () => {
   clearBoard();
   board.style.gridTemplateColumns = `repeat(${16}, 1fr)`;
@@ -23,6 +18,40 @@ const defaultBoard = () => {
     boxSize.textContent = "16X16";
   }
 };
+const clearBoard = () => {
+  board.innerHTML = "";
+  boxSize.textContent = "0X0";
+};
+let rainbowColor;
+let currentMode;
+const modeSelector = (status) => {
+  if (status == "eraser") {
+    currentMode = "erase";
+  } else if (status == "rainbow") {
+    currentMode = "rainbow";
+    console.log(status);
+    const rG = Math.floor(Math.random() * 256);
+    const rR = Math.floor(Math.random() * 256);
+    const rB = Math.floor(Math.random() * 256);
+    rainbowColor = `rgb(${rR},${rG},${rB})`;
+  } else {
+    currentMode == status;
+  }
+};
+const changeColor = (e) => {
+  if (e.target.value == "rainbow") {
+    console.log(rainbowColor);
+    e.target.style.backgroundColor = rainbowColor;
+  }
+  if (e.target.value == "erase") {
+    e.target.backgroundColor;
+  }
+};
+colorPicker.addEventListener("change", (e) => {
+  modeSelector(e.target.value);
+});
+eraser.addEventListener("click", modeSelector("eraser"));
+rainbowMode.addEventListener("click", modeSelector("rainbow"));
 Resetter.addEventListener("click", defaultBoard);
 boardCleaner.addEventListener("click", clearBoard);
 const divCreater = (e) => {
@@ -34,6 +63,12 @@ const divCreater = (e) => {
     let div = document.createElement("div");
     div.style.border = "solid";
     div.classList.add("divInside");
+    div.addEventListener("click", (e) => {
+      console.log("helow");
+    });
+    div.addEventListener("onclick", (e) => {
+      e.target.style.backgroundColor = "black";
+    });
     board.appendChild(div);
   }
   boxSize.textContent = e.target.value + "X" + e.target.value;
@@ -41,7 +76,7 @@ const divCreater = (e) => {
 divInsideContainer.addEventListener("input", divCreater);
 let colorValue;
 colorPicker.addEventListener("change", (e) => {
-  board.style.backgroundColor = e.target.value;
+  colorValue = e.target.value;
 });
 const splashScreen = document.querySelector(".splash");
 splashScreen.addEventListener("click", () => {
@@ -50,5 +85,4 @@ splashScreen.addEventListener("click", () => {
     splashScreen.classList.add("hidden");
   }, 610);
 });
-
 defaultBoard();
