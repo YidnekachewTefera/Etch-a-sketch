@@ -20,6 +20,7 @@ const defaultBoard = () => {
 };
 const clearBoard = () => {
   board.innerHTML = "";
+  z;
   boxSize.textContent = "0X0";
 };
 let rainbowColor;
@@ -81,8 +82,6 @@ colorPicker.addEventListener("change", (e) => {
 const splashScreen = document.querySelector(".splash");
 splashScreen.addEventListener("click", () => {
   splashScreen.style.opacity = 0;
-  setTimeout(() => {
-    splashScreen.classList.add("hidden");
-  }, 610);
+  setTimeout(() => {}, 610);
 });
 defaultBoard();
