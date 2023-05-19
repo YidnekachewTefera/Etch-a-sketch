@@ -10,6 +10,7 @@ let currentMode = "black";
 colorPicker.addEventListener("input", (e) => {
   currentMode = e.target.value;
 });
+let size;
 const rainbowColors = () => {
   let rG = Math.floor(Math.random() * 256);
   let rB = Math.floor(Math.random() * 256);
@@ -17,7 +18,7 @@ const rainbowColors = () => {
   return `rgb(${rR},${rG},${rB})`;
 };
 const modeSelector = (e) => {
-  if (e.target.value == "rainbow") {
+  if (e.target.value == "Rainbow") {
     currentMode = "RainBowMode";
   } else if (e.target.value == "erase") {
     currentMode = "white";
@@ -26,12 +27,14 @@ const modeSelector = (e) => {
 const drower = (e) => {
   if (currentMode == "RainBowMode") {
     let color = rainbowColors();
+    console.log(color);
     e.target.style.backgroundColor = color;
   } else e.target.style.backgroundColor = currentMode;
 };
 const defaultBoard = () => {
+  currentMode = "black";
   board.innerHTML = "";
-  let size = 16;
+  size = 16;
   board.style.gridTemplateColumns = `repeat(${size},1fr)`;
   board.style.gridTemplateRows = `repeat(${size},1fr)`;
   for (let i = 0; i < size * size; i++) {
@@ -45,7 +48,7 @@ const defaultBoard = () => {
 };
 const boxCreator = (e) => {
   board.innerHTML = "";
-  let size = e.target.value;
+  size = e.target.value;
   board.style.gridTemplateColumns = `repeat(${size},1fr)`;
   board.style.gridTemplateRows = `repeat(${size},1fr)`;
   for (let i = 0; i < size * size; i++) {
@@ -58,4 +61,18 @@ const boxCreator = (e) => {
 rainbowMode.addEventListener("click", modeSelector);
 boxSizeSetter.addEventListener("input", boxCreator);
 resetBoard.addEventListener("click", defaultBoard);
+eraser.addEventListener("click", modeSelector);
+boardCleaner.addEventListener("click", () => {
+  board.innerHTML = "";
+  board.style.gridTemplateColumns = `repeat(${size},1fr)`;
+  board.style.gridTemplateRows = `repeat(${size},1fr)`;
+  for (let i = 0; i < size * size; i++) {
+    let div = document.createElement("div");
+    div.addEventListener("mouseover", drower);
+    div.addEventListener("mousedown", drower);
+    board.appendChild(div);
+    boxesDisplayer.innerHTML = `${size}X${size}`;
+  }
+  boxSizeSetter.value = size;
+});
 defaultBoard();
