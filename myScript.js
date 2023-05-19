@@ -6,7 +6,29 @@ const eraser = document.querySelector(".eraser");
 const boardCleaner = document.querySelector(".board-cleaner");
 let boxesDisplayer = document.querySelector(".box-size");
 const boxSizeSetter = document.querySelector(".div-inside-container");
-let currentMode = "white";
+let currentMode = "black";
+colorPicker.addEventListener("input", (e) => {
+  currentMode = e.target.value;
+});
+const rainbowColors = () => {
+  let rG = Math.floor(Math.random() * 256);
+  let rB = Math.floor(Math.random() * 256);
+  let rR = Math.floor(Math.random() * 256);
+  return `rgb(${rR},${rG},${rB})`;
+};
+const modeSelector = (e) => {
+  if (e.target.value == "rainbow") {
+    currentMode = "RainBowMode";
+  } else if (e.target.value == "erase") {
+    currentMode = "white";
+  }
+};
+const drower = (e) => {
+  if (currentMode == "RainBowMode") {
+    let color = rainbowColors();
+    e.target.style.backgroundColor = color;
+  } else e.target.style.backgroundColor = currentMode;
+};
 const defaultBoard = () => {
   board.innerHTML = "";
   let size = 16;
@@ -14,7 +36,8 @@ const defaultBoard = () => {
   board.style.gridTemplateRows = `repeat(${size},1fr)`;
   for (let i = 0; i < size * size; i++) {
     let div = document.createElement("div");
-    div.style.border = "solid";
+    div.addEventListener("mouseover", drower);
+    div.addEventListener("mousedown", drower);
     board.appendChild(div);
     boxesDisplayer.innerHTML = `${size}X${size}`;
   }
@@ -27,22 +50,12 @@ const boxCreator = (e) => {
   board.style.gridTemplateRows = `repeat(${size},1fr)`;
   for (let i = 0; i < size * size; i++) {
     let div = document.createElement("div");
-    div.style.border = "solid";
+    div.addEventListener("mouseover", drower);
     board.appendChild(div);
     boxesDisplayer.innerHTML = `${e.target.value}X${e.target.value}`;
   }
 };
+rainbowMode.addEventListener("click", modeSelector);
 boxSizeSetter.addEventListener("input", boxCreator);
-const modeSelector = (e) => {
-  if (e.target.value == "rainbow") {
-    let rG = Math.floor(Math.random * 256);
-    let rB = Math.floor(Math.random * 256);
-    let rR = Math.floor(Math.random * 256);
-    currentMode = `rgb(${rR},${rG},${rB})`;
-  } else if (e.target.value == "erase") {
-    currentMode = "white";
-  }
-};
-//resetBoard.addEventListener("click", modeSelector);
 resetBoard.addEventListener("click", defaultBoard);
 defaultBoard();
